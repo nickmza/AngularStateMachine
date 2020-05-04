@@ -12,7 +12,12 @@ export class ComplexStateEvent {
     constructor(public command: String) {}
 }
 
-export type LoanEvent = NextEvent | ComplexStateEvent | BackEvent
+export class UIStateUpdateEvent{
+    readonly type = 'EVENT_UI'
+    constructor(public command: any) {}
+}
+
+export type LoanEvent = NextEvent | ComplexStateEvent | BackEvent | UIStateUpdateEvent
 
 export interface Errors {
 [key: string]: string;

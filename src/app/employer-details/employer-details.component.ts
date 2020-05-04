@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LoanStateMachine } from '../loan-state-machine/loan-state.service';
+import { BackEvent } from '../loan-state-machine/loan-state.events';
 
 @Component({
   selector: 'app-employer-details',
@@ -85,9 +87,13 @@ export class EmployerDetailsComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private sm: LoanStateMachine) {}
 
   onSubmit() {
     alert('Thanks!');
+  }
+
+  onBack(){
+    this.sm.send(new BackEvent())
   }
 }

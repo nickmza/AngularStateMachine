@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoanStateMachine } from '../loan-state-machine/loan-state.service';
-import { NextEvent } from '../loan-state-machine/loan-state.events';
+import { NextEvent, UIStateUpdateEvent } from '../loan-state-machine/loan-state.events';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-details',
@@ -14,7 +16,10 @@ export class CustomerDetailsComponent {
     firstName: [null, Validators.required],
     lastName: [null, Validators.required],
     dob: [null, Validators.required],
+    idType: null,
+    idIssuingCountry: null,
     nic: [null, Validators.required],
+    passport: [null, Validators.required],
     address: [null, Validators.required],
     address2: null,
     city: [null, Validators.required],
@@ -26,6 +31,8 @@ export class CustomerDetailsComponent {
   });
 
   hasUnitNumber = false;
+
+  showExpatFields$: Observable<boolean>;
 
   states = [
     {name: 'Alabama', abbreviation: 'AL'},
@@ -90,6 +97,19 @@ export class CustomerDetailsComponent {
   ];
 
   constructor(private fb: FormBuilder, private sm: LoanStateMachine) {}
+
+  ngOnInit(): void {
+    this.showExpatFields$ = this.sm.authState$.pipe(map(state => state.context.showExpatFields))
+    this.sm.authState$.subscribe(this.onStateChange);
+
+    this.addressForm.valueChanges.subscribe((data)=>{
+      this.sm.send(new UIStateUpdateEvent(data));
+    })
+  }
+
+  onStateChange(state) {
+    console.log("STATE UPDATE: " + state.value);
+  }
 
   onSubmit() {
     this.sm.send(new NextEvent());

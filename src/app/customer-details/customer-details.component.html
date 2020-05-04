@@ -33,13 +33,43 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-label>ID Type</mat-label>
+            <mat-select matNativeControl formControlName="idType"> 
+              <mat-option value="nic">NIC</mat-option>
+              <mat-option value="passport">Passport</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" *ngIf="!(showExpatFields$ | async)">
             <input matInput placeholder="NIC" formControlName="nic">
             <mat-error *ngIf="addressForm.controls['nic'].hasError('required')">
               NIC is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-        </div>
 
+          <mat-form-field class="full-width" *ngIf="(showExpatFields$ | async)">
+            <input matInput placeholder="Passport" formControlName="passport">
+            <mat-error *ngIf="addressForm.controls['passport'].hasError('required')">
+              Passport is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div class="row" *ngIf="(showExpatFields$ | async)">
+        <div class="col">
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Country of Issue" formControlName="idIssuingCountry">
+            <mat-option *ngFor="let state of states" [value]="state.abbreviation">
+              {{ state.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="addressForm.controls['idIssuingCountry'].hasError('required')">
+            Issuing Country is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <div class="col">

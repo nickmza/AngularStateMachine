@@ -12,7 +12,7 @@ import { loanConfig } from './loan-state.config';
 import { LoanSchema, LoanContext } from './loan-state.schema';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ComplexStateEvent, LoanEvent } from './loan-state.events';
+import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent } from './loan-state.events';
 
 
 @Injectable()
@@ -24,11 +24,22 @@ export class LoanStateMachine {
     guards: {
         isEmployed:()=>{
             return true;
+        },
+        isExpat:(context, event)=>{
+             return context.showExpatFields;
         }
     },
     actions: {
+        updateUi:(context, event: UIStateUpdateEvent)=>
+        {
+            context.formData = event.command;
+            context.showExpatFields = context.formData.idType !== "nic"
+        },
         navigate:(ctx) =>{
             this.router.navigate(['employer-details'])
+        },
+        navigateBack:()=>{
+            this.router.navigate(['customer-details'])
         }
     }
   };

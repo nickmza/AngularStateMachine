@@ -8,6 +8,8 @@ export const context: LoanContext = {
   messages: [],
   errors: [],
   actions: ['Next'],
+  showExpatFields: false,
+  formData: {}
 };
 
 export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
@@ -25,10 +27,18 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
             EVENT_NEXT:[
                 {target: 'employerDetails', cond: 'isEmployed', actions:'navigate'},
                 {target: 'incomeDetails'}
+            ],
+            EVENT_UI:[
+                {target: 'customerDetails', actions: 'updateUi'},
             ]
         }
     },
     employerDetails:{
+        on:{
+            EVENT_BACK:{
+                target: 'customerDetails', actions:'navigateBack'
+            }
+        }
     },
     incomeDetails:{
     }

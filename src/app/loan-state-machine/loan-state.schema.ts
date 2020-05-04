@@ -13,4 +13,6 @@ export interface LoanContext {
     messages: string[];
     errors: string[];
     actions: string[];
+    showExpatFields: boolean;
+    formData: any;
 }
