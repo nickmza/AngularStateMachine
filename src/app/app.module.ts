@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { EmployerDetailsComponent } from './employer-details/employer-details.component';
+import { LoanStateMachine } from './loan-state-machine/loan-state.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { EmployerDetailsComponent } from './employer-details/employer-details.co
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LoanStateMachine],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

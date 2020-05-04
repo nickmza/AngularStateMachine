@@ -16,14 +16,20 @@ import { ComplexStateEvent, LoanEvent } from './loan-state.events';
 
 
 @Injectable()
-export class FormStateMachine {
+export class LoanStateMachine {
   //This binds the actions/guards etc in the State machine to actual functionality.
   formStateOptions: Partial<MachineOptions<LoanContext, LoanEvent>> = {
     services: {
     },
     guards: {
+        isEmployed:()=>{
+            return true;
+        }
     },
     actions: {
+        navigate:(ctx) =>{
+            this.router.navigate(['employer-details'])
+        }
     }
   };
 
@@ -43,5 +49,7 @@ export class FormStateMachine {
   send(event: LoanEvent) {
     this.service.send(event);
   }
+
+  constructor(private router: Router) {}
 }
 

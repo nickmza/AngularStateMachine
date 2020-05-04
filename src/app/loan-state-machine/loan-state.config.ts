@@ -23,7 +23,7 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
     customerDetails:{
         on:{
             EVENT_NEXT:[
-                {target: 'employerDetails', cond: 'isEmployed'},
+                {target: 'employerDetails', cond: 'isEmployed', actions:'navigate'},
                 {target: 'incomeDetails'}
             ]
         }

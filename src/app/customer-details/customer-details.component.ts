@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LoanStateMachine } from '../loan-state-machine/loan-state.service';
+import { NextEvent } from '../loan-state-machine/loan-state.events';
 
 @Component({
   selector: 'app-customer-details',
@@ -87,9 +89,9 @@ export class CustomerDetailsComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private sm: LoanStateMachine) {}
 
   onSubmit() {
-    alert('Thanks!');
+    this.sm.send(new NextEvent());
   }
 }
