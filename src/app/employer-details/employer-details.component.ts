@@ -2,17 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-customer-details',
-  templateUrl: './customer-details.component.html',
-  styleUrls: ['./customer-details.component.css']
+  selector: 'app-employer-details',
+  templateUrl: './employer-details.component.html',
+  styleUrls: ['./employer-details.component.css']
 })
-export class CustomerDetailsComponent {
+export class EmployerDetailsComponent {
   addressForm = this.fb.group({
     company: null,
     firstName: [null, Validators.required],
     lastName: [null, Validators.required],
-    dob: [null, Validators.required],
-    nic: [null, Validators.required],
     address: [null, Validators.required],
     address2: null,
     city: [null, Validators.required],

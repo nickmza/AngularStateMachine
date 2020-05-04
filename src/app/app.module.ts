@@ -17,12 +17,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { EmployerDetailsComponent } from './employer-details/employer-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DefaultNavComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    EmployerDetailsComponent
   ],
   imports: [
     BrowserModule,
