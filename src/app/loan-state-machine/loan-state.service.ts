@@ -12,7 +12,8 @@ import { loanConfig, context } from './loan-state.config';
 import { LoanSchema, LoanContext } from './loan-state.schema';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent } from './loan-state.events';
+import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent, CustomerValidationEvent } from './loan-state.events';
+import { ValidateCustomerService } from '../validate-customer.service';
 
 
 @Injectable()
@@ -20,8 +21,15 @@ export class LoanStateMachine {
   //This binds the actions/guards etc in the State machine to actual functionality.
   formStateOptions: Partial<MachineOptions<LoanContext, LoanEvent>> = {
     services: {
+      validateCustomer:(context)=>
+        this.validateCustomerService
+        .validateCustomer(context.formData.nic)
+        .pipe(map(i=> new CustomerValidationEvent(i)))
     },
     guards: {
+        isCustomerValid:(context, event: CustomerValidationEvent)=>{
+          return !event.customerStatus;
+        },
         isEmployed:()=>{
             return context.formData.employmentStatus === 'employed';
         },
@@ -62,6 +70,6 @@ export class LoanStateMachine {
     return this._authMachine.context;
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private validateCustomerService: ValidateCustomerService) {}
 }
 

@@ -4,6 +4,7 @@ export interface LoanSchema {
         customerDetails: {};
         employerDetails: {};
         incomeDetails: {};
+        validateCustomer: {};
     };
 }
   
