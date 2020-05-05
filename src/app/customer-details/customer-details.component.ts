@@ -27,7 +27,7 @@ export class CustomerDetailsComponent {
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
-    shipping: ['free', Validators.required]
+    employmentStatus: ['', Validators.required]
   });
 
   hasUnitNumber = false;
@@ -105,6 +105,11 @@ export class CustomerDetailsComponent {
     this.addressForm.valueChanges.subscribe((data)=>{
       this.sm.send(new UIStateUpdateEvent(data));
     })
+
+    //Replace the form data with the data from the SM. 
+    if(this.sm.getContext().formData){
+      this.addressForm.setValue(this.sm.getContext().formData)
+    }
   }
 
   onStateChange(state) {

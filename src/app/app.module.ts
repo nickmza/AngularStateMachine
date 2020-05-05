@@ -19,13 +19,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { EmployerDetailsComponent } from './employer-details/employer-details.component';
 import { LoanStateMachine } from './loan-state-machine/loan-state.service';
+import { IncomeDetailsComponent } from './income-details/income-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DefaultNavComponent,
     CustomerDetailsComponent,
-    EmployerDetailsComponent
+    EmployerDetailsComponent,
+    IncomeDetailsComponent
   ],
   imports: [
     BrowserModule,

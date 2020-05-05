@@ -8,7 +8,7 @@ import {
   EventObject
 } from 'xstate';
 import { Injectable } from '@angular/core';
-import { loanConfig } from './loan-state.config';
+import { loanConfig, context } from './loan-state.config';
 import { LoanSchema, LoanContext } from './loan-state.schema';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class LoanStateMachine {
     },
     guards: {
         isEmployed:()=>{
-            return true;
+            return context.formData.employmentStatus === 'employed';
         },
         isExpat:(context, event)=>{
              return context.showExpatFields;
@@ -33,13 +33,10 @@ export class LoanStateMachine {
         updateUi:(context, event: UIStateUpdateEvent)=>
         {
             context.formData = event.command;
-            context.showExpatFields = context.formData.idType !== "nic"
+            context.showExpatFields = !(context.formData.idType === "nic") && context.formData.idType != null
         },
-        navigate:(ctx) =>{
-            this.router.navigate(['employer-details'])
-        },
-        navigateBack:()=>{
-            this.router.navigate(['customer-details'])
+        navigate:(ctx, event, meta) =>{
+            this.router.navigate([meta.action.route]);
         }
     }
   };
@@ -53,12 +50,16 @@ export class LoanStateMachine {
     handler => {
       return this.service.onTransition(handler);
     },
-    (_, service) => service.stop()
+    (_, service) => console.log('stop') //service.stop() //TODO: This gets called when there are no more subscribers. Need to decide how lifecycle management happens.
   ).pipe(map(([state, _]) => state));
   
   //Send an event to the state machine.
   send(event: LoanEvent) {
     this.service.send(event);
+  }
+
+  getContext():any{
+    return this._authMachine.context;
   }
 
   constructor(private router: Router) {}

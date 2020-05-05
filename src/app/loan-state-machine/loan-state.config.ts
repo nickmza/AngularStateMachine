@@ -25,8 +25,8 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
     customerDetails:{
         on:{
             EVENT_NEXT:[
-                {target: 'employerDetails', cond: 'isEmployed', actions:'navigate'},
-                {target: 'incomeDetails'}
+                {target: 'employerDetails', cond: 'isEmployed', actions:{ type: 'navigate', route: 'employer-details' }},
+                {target: 'incomeDetails', actions:{ type: 'navigate', route: 'income-details' }}
             ],
             EVENT_UI:[
                 {target: 'customerDetails', actions: 'updateUi'},
@@ -35,12 +35,17 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
     },
     employerDetails:{
         on:{
-            EVENT_BACK:{
-                target: 'customerDetails', actions:'navigateBack'
-            }
+            EVENT_BACK: {target: 'customerDetails', actions:{ type: 'navigate', route: 'customer-details' }},
+            EVENT_NEXT: {target: 'incomeDetails', actions:{ type: 'navigate', route: 'income-details' }}
         }
     },
     incomeDetails:{
+      on:{
+        EVENT_BACK:[
+          {target: 'employerDetails', cond: 'isEmployed', actions:{ type: 'navigate', route: 'employer-details' }},
+          {target: 'customerDetails', actions:{ type: 'navigate', route: 'customer-details' }}
+      ]
+    }
     }
   }
 };
