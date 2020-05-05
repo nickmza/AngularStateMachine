@@ -9,7 +9,7 @@ export const context: LoanContext = {
   errors: [],
   actions: ['Next'],
   showExpatFields: false,
-  formData: {}
+  formData: null
 };
 
 export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {

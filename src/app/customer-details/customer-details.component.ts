@@ -12,7 +12,6 @@ import { map } from 'rxjs/operators';
 })
 export class CustomerDetailsComponent {
   addressForm = this.fb.group({
-    company: null,
     firstName: [null, Validators.required],
     lastName: [null, Validators.required],
     dob: [null, Validators.required],
@@ -33,6 +32,7 @@ export class CustomerDetailsComponent {
   hasUnitNumber = false;
 
   showExpatFields$: Observable<boolean>;
+  loading$: Observable<boolean>;
 
   states = [
     {name: 'Alabama', abbreviation: 'AL'},
@@ -105,6 +105,10 @@ export class CustomerDetailsComponent {
     this.addressForm.valueChanges.subscribe((data)=>{
       this.sm.send(new UIStateUpdateEvent(data));
     })
+
+    this.loading$ = this.sm.authState$.pipe(
+      map(state => state.matches('validateCustomer'))
+    );
 
     //Replace the form data with the data from the SM. 
     if(this.sm.getContext().formData){

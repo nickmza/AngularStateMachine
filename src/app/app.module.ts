@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmployerDetailsComponent } from './employer-details/employer-details.component';
 import { LoanStateMachine } from './loan-state-machine/loan-state.service';
 import { IncomeDetailsComponent } from './income-details/income-details.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { IncomeDetailsComponent } from './income-details/income-details.componen
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
