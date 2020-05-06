@@ -5,6 +5,7 @@ export interface LoanSchema {
         employerDetails: {};
         incomeDetails: {};
         validateCustomer: {};
+        timeout:{};
     };
 }
   

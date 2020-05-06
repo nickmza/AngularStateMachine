@@ -46,7 +46,18 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
         on:{
             EVENT_BACK: {target: 'customerDetails', actions:{ type: 'navigate', route: 'customer-details' }},
             EVENT_NEXT: {target: 'incomeDetails', actions:{ type: 'navigate', route: 'income-details' }}
+        },
+        after:{
+          5000: {target: 'timeout', actions: 'showTimeout'}
         }
+    },
+    timeout:{
+      on:{
+          EVENT_RESET:{target: 'incomeDetails'} 
+      },
+      after:{
+        3000: {target: 'customerDetails', actions:{ type: 'navigate', route: 'customer-details' }}
+      }
     },
     incomeDetails:{
       on:{

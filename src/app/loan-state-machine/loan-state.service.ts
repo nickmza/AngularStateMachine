@@ -14,6 +14,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent, CustomerValidationEvent } from './loan-state.events';
 import { ValidateCustomerService } from '../validate-customer.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Injectable()
@@ -38,6 +39,11 @@ export class LoanStateMachine {
         }
     },
     actions: {
+        showTimeout:()=>{
+          this._snackBar.open('Session Timer Expired.', 'OK', {
+            duration: 3000
+          }); 
+        },
         updateUi:(context, event: UIStateUpdateEvent)=>
         {
             context.formData = event.command;
@@ -87,6 +93,6 @@ export class LoanStateMachine {
     }
   }
 
-  constructor(private router: Router, private validateCustomerService: ValidateCustomerService) {}
+  constructor(private router: Router, private validateCustomerService: ValidateCustomerService, private _snackBar: MatSnackBar) {}
 }
 

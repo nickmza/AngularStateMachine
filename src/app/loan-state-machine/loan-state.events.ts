@@ -4,6 +4,14 @@ export class NextEvent{
     readonly type = 'EVENT_NEXT'
 }
 
+export class TimeoutEvent{
+    readonly type = 'EVENT_TIMEOUT'
+}
+
+export class ResetEvent{
+    readonly type = 'EVENT_RESET'
+}
+
 export class BackEvent{
     readonly type = 'EVENT_BACK'
 }
@@ -23,7 +31,7 @@ export class UIStateUpdateEvent{
     constructor(public command: any) {}
 }
 
-export type LoanEvent = NextEvent | ComplexStateEvent | BackEvent | UIStateUpdateEvent | CustomerValidationEvent
+export type LoanEvent = NextEvent | ComplexStateEvent | BackEvent | UIStateUpdateEvent | CustomerValidationEvent | TimeoutEvent | ResetEvent
 
 export interface Errors {
 [key: string]: string;
