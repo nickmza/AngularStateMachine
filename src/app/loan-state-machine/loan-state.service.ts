@@ -23,7 +23,7 @@ export class LoanStateMachine {
     services: {
       validateCustomer:(context)=>
         this.validateCustomerService
-        .validateCustomer(context.formData.nic)
+        .validateCustomer(this.getIdentifier(context))
         .pipe(map(i=> new CustomerValidationEvent(i)))
     },
     guards: {
@@ -76,6 +76,15 @@ export class LoanStateMachine {
 
   getContext():any{
     return this._authMachine.context;
+  }
+
+  getIdentifier(context: LoanContext):string{
+    if(context.formData.idType === "nic"){
+      return context.formData.nic;
+    }
+    else{
+      return context.formData.passport;
+    }
   }
 
   constructor(private router: Router, private validateCustomerService: ValidateCustomerService) {}

@@ -25,7 +25,7 @@ export class CustomerDetailsComponent {
     city: [null],
     state: [null],
     postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+      Validators.minLength(5), Validators.maxLength(5)])
     ],
     employmentStatus: [null, Validators.required]
   });
