@@ -53,7 +53,7 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
     },
     timeout:{
       on:{
-          EVENT_RESET:{target: 'incomeDetails'} 
+          EVENT_RESET:{target: 'employerDetails'} 
       },
       after:{
         3000: {target: 'customerDetails', actions:{ type: 'navigate', route: 'customer-details' }}

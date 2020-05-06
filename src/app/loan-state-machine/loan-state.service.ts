@@ -12,7 +12,7 @@ import { loanConfig, context } from './loan-state.config';
 import { LoanSchema, LoanContext } from './loan-state.schema';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent, CustomerValidationEvent } from './loan-state.events';
+import { ComplexStateEvent, LoanEvent, UIStateUpdateEvent, CustomerValidationEvent, ResetEvent } from './loan-state.events';
 import { ValidateCustomerService } from '../validate-customer.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -40,8 +40,11 @@ export class LoanStateMachine {
     },
     actions: {
         showTimeout:()=>{
-          this._snackBar.open('Session Timer Expired.', 'OK', {
+          this._snackBar.open('Session Timer Expired.', 'Reset', {
             duration: 3000
+          }).onAction().subscribe(()=>
+          {
+            this.send(new ResetEvent());
           }); 
         },
         updateUi:(context, event: UIStateUpdateEvent)=>

@@ -16,7 +16,7 @@ export class ValidateCustomerService {
         var result = new CustomerValidationResult();
         result.identifier = identifier;
 
-        if(identifier.startsWith("A")){
+        if(identifier.startsWith("A") || identifier == ""){
           result.valid = false;
           result.message = 'Invalid NIC or Passport.';
         }else{
