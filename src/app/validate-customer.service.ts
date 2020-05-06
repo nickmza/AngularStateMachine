@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {CustomerValidationResult} from './customerValidationResult'
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,20 @@ export class ValidateCustomerService {
 
   constructor() { }
 
-  validateCustomer(identifier: string): Observable<boolean>{
-    return new Observable<boolean>(observer => {
+  validateCustomer(identifier: string): Observable<CustomerValidationResult>{
+    return new Observable<CustomerValidationResult>(observer => {
       setInterval(() => {
+
+        var result = new CustomerValidationResult();
+        result.identifier = identifier;
+
         if(identifier.startsWith("A")){
-          observer.next(false);
+          result.valid = false;
+          result.message = 'Invalid NIC.';
         }else{
-          observer.next(true);
+          result.valid = true;
         }
+        observer.next(result);
       }, 1000);
     });
   }

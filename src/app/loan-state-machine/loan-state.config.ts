@@ -36,7 +36,7 @@ export const loanConfig: MachineConfig<LoanContext,LoanSchema,LoanEvent> = {
             },
             on:{
               EVENT_CUSTOMER_VALIDATION: [
-                {target: 'customerDetails', cond: 'isCustomerValid', actions:{ type: 'navigate', route: 'customer-details' }},
+                {target: 'customerDetails', cond: 'isCustomerValid', actions:[{ type: 'navigate', route: 'customer-details' }, 'checkForErrors']},
                 {target: 'employerDetails', cond: 'isEmployed', actions:{ type: 'navigate', route: 'employer-details' }},
                 {target: 'incomeDetails', actions:{ type: 'navigate', route: 'income-details' }}
               ]

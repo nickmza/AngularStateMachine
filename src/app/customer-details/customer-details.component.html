@@ -124,6 +124,9 @@
         <mat-radio-button value="self-employed">Self-employed</mat-radio-button>
         <mat-radio-button value="employed">Employed</mat-radio-button>
       </mat-radio-group>
+      <mat-error *ngIf="addressForm.controls['employmentStatus'].hasError('required')">
+        Employment Details <strong>required</strong>
+      </mat-error>
     </mat-card-content>
   </mat-card>
 
@@ -132,8 +135,10 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
+      <div class="spinner-wrapper">
       <button mat-raised-button color="primary" type="submit">Next</button>
-      <mat-spinner *ngIf="(loading$ | async)"></mat-spinner>
+      <mat-spinner [diameter]="32" *ngIf="(loading$ | async)"></mat-spinner>
+    </div>
     </mat-card-actions>
   </mat-card>
 

@@ -21,6 +21,7 @@ import { EmployerDetailsComponent } from './employer-details/employer-details.co
 import { LoanStateMachine } from './loan-state-machine/loan-state.service';
 import { IncomeDetailsComponent } from './income-details/income-details.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSnackBarModule
   ],
   providers: [LoanStateMachine],
   bootstrap: [AppComponent]

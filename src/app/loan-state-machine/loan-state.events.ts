@@ -1,3 +1,4 @@
+import { CustomerValidationResult } from '../customerValidationResult';
 
 export class NextEvent{
     readonly type = 'EVENT_NEXT'
@@ -14,7 +15,7 @@ export class ComplexStateEvent {
 
 export class CustomerValidationEvent {
     readonly type = 'EVENT_CUSTOMER_VALIDATION';
-    constructor(public customerStatus: boolean) {}
+    constructor(public customerStatus: CustomerValidationResult) {}
 }
 
 export class UIStateUpdateEvent{

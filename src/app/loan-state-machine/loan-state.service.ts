@@ -28,7 +28,7 @@ export class LoanStateMachine {
     },
     guards: {
         isCustomerValid:(context, event: CustomerValidationEvent)=>{
-          return !event.customerStatus;
+          return !event.customerStatus.valid;
         },
         isEmployed:()=>{
             return context.formData.employmentStatus === 'employed';
@@ -45,6 +45,14 @@ export class LoanStateMachine {
         },
         navigate:(ctx, event, meta) =>{
             this.router.navigate([meta.action.route]);
+        },
+        checkForErrors: (ctx, event)=>{
+          if(event instanceof CustomerValidationEvent){
+            var validation = event as CustomerValidationEvent;
+            if(!validation.customerStatus.valid){
+              ctx.errors.push(validation.customerStatus.message)
+            }
+          }
         }
     }
   };

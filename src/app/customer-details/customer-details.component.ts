@@ -4,6 +4,7 @@ import { LoanStateMachine } from '../loan-state-machine/loan-state.service';
 import { NextEvent, UIStateUpdateEvent } from '../loan-state-machine/loan-state.events';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-customer-details',
@@ -14,19 +15,19 @@ export class CustomerDetailsComponent {
   addressForm = this.fb.group({
     firstName: [null, Validators.required],
     lastName: [null, Validators.required],
-    dob: [null, Validators.required],
+    dob: [null],
     idType: null,
     idIssuingCountry: null,
-    nic: [null, Validators.required],
-    passport: [null, Validators.required],
-    address: [null, Validators.required],
+    nic: [null],
+    passport: [null],
+    address: [null],
     address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
+    city: [null],
+    state: [null],
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
-    employmentStatus: ['', Validators.required]
+    employmentStatus: [null, Validators.required]
   });
 
   hasUnitNumber = false;
@@ -96,7 +97,7 @@ export class CustomerDetailsComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder, private sm: LoanStateMachine) {}
+  constructor(private fb: FormBuilder, private sm: LoanStateMachine, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.showExpatFields$ = this.sm.authState$.pipe(map(state => state.context.showExpatFields))
@@ -110,6 +111,15 @@ export class CustomerDetailsComponent {
       map(state => state.matches('validateCustomer'))
     );
 
+    this.sm.authState$.pipe(map(i=>i.context.errors)).subscribe((i)=>
+    {
+      if(i.length > 0){
+        this._snackBar.open(i[0], 'OK', {
+          duration: 3000
+        });  
+      }
+    });
+
     //Replace the form data with the data from the SM. 
     if(this.sm.getContext().formData){
       this.addressForm.setValue(this.sm.getContext().formData)
@@ -121,6 +131,8 @@ export class CustomerDetailsComponent {
   }
 
   onSubmit() {
-    this.sm.send(new NextEvent());
+    if(!this.addressForm.invalid){
+      this.sm.send(new NextEvent());
+    }
   }
 }
