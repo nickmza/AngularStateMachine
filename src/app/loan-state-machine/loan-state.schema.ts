@@ -1,11 +1,16 @@
 export interface LoanSchema {
     states: {
         boot: {};
-        customerDetails: {};
-        employerDetails: {};
-        incomeDetails: {};
-        validateCustomer: {};
         timeout:{};
+        capture:{
+            states:{
+                customerDetails: {};
+                employerDetails: {};
+                incomeDetails: {};
+                validateCustomer: {};
+                hist:{};
+            }
+        };
     };
 }
   
