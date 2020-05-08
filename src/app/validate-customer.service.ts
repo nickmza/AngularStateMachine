@@ -23,6 +23,7 @@ export class ValidateCustomerService {
           result.valid = true;
         }
         observer.next(result);
+        observer.complete();
       }, 1000);
     });
   }

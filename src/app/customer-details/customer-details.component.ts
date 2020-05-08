@@ -108,7 +108,7 @@ export class CustomerDetailsComponent {
     })
 
     this.loading$ = this.sm.authState$.pipe(
-      map(state => state.matches('validateCustomer'))
+      map(state => state.matches('capture.validateCustomer'))
     );
 
     this.sm.authState$.pipe(map(i=>i.context.errors)).subscribe((i)=>
@@ -127,7 +127,7 @@ export class CustomerDetailsComponent {
   }
 
   onStateChange(state) {
-    console.log("STATE UPDATE: " + state.value);
+    console.log("STATE UPDATE: " + state.value.capture);
   }
 
   onSubmit() {
