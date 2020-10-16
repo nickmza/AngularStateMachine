@@ -22,6 +22,8 @@ import { LoanStateMachine } from './loan-state-machine/loan-state.service';
 import { IncomeDetailsComponent } from './income-details/income-details.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { TrafficComponent } from './traffic/traffic.component';
+import { TrafficStateMachine } from './traffic-state-machine/traffic-state.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DefaultNavComponent,
     CustomerDetailsComponent,
     EmployerDetailsComponent,
-    IncomeDetailsComponent
+    IncomeDetailsComponent,
+    TrafficComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppRoutingModule,
     MatSnackBarModule
   ],
-  providers: [LoanStateMachine],
+  providers: [LoanStateMachine, TrafficStateMachine],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,8 +11,7 @@ export class ValidateCustomerService {
 
   validateCustomer(identifier: string): Observable<CustomerValidationResult>{
     return new Observable<CustomerValidationResult>(observer => {
-      setInterval(() => {
-
+      setTimeout(() => {
         var result = new CustomerValidationResult();
         result.identifier = identifier;
 

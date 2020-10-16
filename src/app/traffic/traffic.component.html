@@ -1,0 +1,28 @@
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Traffic Lights</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+    <svg id="svg1" style="width: 3.5in; height: 1in">
+      <circle id="circle1" r="40" cx="50" cy="50" style="fill: transparent; stroke: black;      stroke-width: 2"/>
+      <circle r="40" cx="50" cy="50" style="fill: red; stroke: black;      stroke-width: 2"  *ngIf="(flash$ | async) || (showRed$ | async)"/>
+    </svg>
+
+    <svg id="svg2" style="width: 3.5in; height: 1in">
+     
+      <circle id="circle2" r="40" cx="50" cy="50" style="fill: transparent; stroke: black; stroke-width: 2"/>
+      <circle r="40" cx="50" cy="50" style="fill: yellow; stroke: black; stroke-width: 2"  *ngIf="(showYellow$ | async)"/>
+
+    </svg>
+
+    <svg id="svg3"style="width: 3.5in; height: 1in">
+      <circle id="circle3" r="40" cx="50" cy="50" style="fill: transparent; stroke: black; stroke-width: 2"/>
+      <circle r="40" cx="50" cy="50" style="fill: green; stroke: black; stroke-width: 2" *ngIf="(showGreen$ | async)"/>
+    </svg>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="button" (click)="onStartTimer()" >Simulate Failure</button>
+    </mat-card-actions>
+  </mat-card>

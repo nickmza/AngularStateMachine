@@ -117,6 +117,7 @@ export class CustomerDetailsComponent {
         this._snackBar.open(i[0], 'OK', {
           duration: 3000
         });  
+        this.sm.getContext().errors = [];
       }
     });
 
